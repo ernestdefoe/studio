@@ -62,7 +62,8 @@ class CoversTest extends TestCase
     #[Test]
     public function the_measuring_job_refuses_private_addresses()
     {
-        foreach (['127.0.0.1', '10.0.0.5', '192.168.1.1', '169.254.169.254', '::1', '[::1]', 'localhost', '0.0.0.0'] as $host) {
+        foreach (['127.0.0.1', '10.0.0.5', '192.168.1.1', '169.254.169.254', '::1', '[::1]', 'localhost', '0.0.0.0',
+            '100.64.1.1', '64:ff9b::7f00:1', '64:ff9b:1::1', '::ffff:127.0.0.1', '0177.0.0.1', '0x7f.1', '2130706433', '198.18.0.1'] as $host) {
             $this->assertNull(MeasureCover::publicAddress($host), $host);
         }
 

@@ -104,10 +104,20 @@ final class MeasureCover extends AbstractJob
 
     /**
      * The host's address, if every address it has is a public one.
+     *
+     * 🚨 Global addresses only (PHP's FILTER_FLAG_GLOBAL_RANGE also refuses
+     * CGNAT 100.64/10 and the documentation and benchmark ranges, which the
+     * private/reserved flags let through), never NAT64 (64:ff9b::/96 and
+     * 64:ff9b:1::/48 reach IPv4 addresses, 127.0.0.1 included), and never a
+     * numeric host in a non-canonical form (0177.0.0.1, 0x7f.1, 2130706433).
      */
     public static function publicAddress(string $host): ?string
     {
         $host = trim($host, '[]');
+
+        if (! filter_var($host, FILTER_VALIDATE_IP) && preg_match('/^(0x[0-9a-f]+|\d+)(\.(0x[0-9a-f]+|\d+)){0,3}$/i', $host)) {
+            return null;
+        }
 
         if (filter_var($host, FILTER_VALIDATE_IP)) {
             $addresses = [$host];
@@ -122,7 +132,7 @@ final class MeasureCover extends AbstractJob
         }
 
         foreach ($addresses as $address) {
-            if (! filter_var($address, FILTER_VALIDATE_IP, FILTER_FLAG_NO_PRIV_RANGE | FILTER_FLAG_NO_RES_RANGE)) {
+            if (! filter_var($address, FILTER_VALIDATE_IP, FILTER_FLAG_GLOBAL_RANGE) || preg_match('/^64:ff9b:/i', $address)) {
                 return null;
             }
         }
