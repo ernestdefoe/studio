@@ -46,8 +46,18 @@
 // ---------------------------------------------------------------------------
 // The card.
 
-.DiscussionPage-nav .item-studioCreator {
-  margin-bottom: 18px;
+.DiscussionPage .Page-sidebar > .StudioCreator--side {
+  margin-top: 32px;
+}
+
+// The scrubber's height comes from the space under it when the page loads;
+// the card above it would leave it a sliver. Core's nav sticks under the
+// header once the card has scrolled away, so size it for that.
+@media @tablet-up {
+  .DiscussionPage-nav .Scrubber-scrollbar {
+    max-height: calc(100vh - var(--header-height, 52px) - 240px) !important;
+    min-height: 120px;
+  }
 }
 
 .StudioCreator {

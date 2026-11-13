@@ -2,7 +2,6 @@ import app from 'flarum/forum/app';
 import { extend, override } from 'flarum/common/extend';
 import DiscussionPage from 'flarum/forum/components/DiscussionPage';
 import CommentPost from 'flarum/forum/components/CommentPost';
-import type ItemList from 'flarum/common/utils/ItemList';
 import type Mithril from 'mithril';
 import Creator from './Creator';
 import Stage from './Stage';
@@ -15,11 +14,12 @@ function isWork(post: any): boolean {
 }
 
 export default function work() {
-  // The card beside the posts. Above core's own Reply button and scrubber.
-  extend(DiscussionPage.prototype, 'sidebarItems', function (this: any, items: ItemList<Mithril.Children>) {
-    if (this.discussion) {
-      items.add('studioCreator', <Creator discussion={this.discussion} variant="side" />, 150);
-    }
+  // The card beside the posts, above core's sticky nav (Reply, the
+  // scrubber) rather than in it: it scrolls away and the nav sticks as
+  // usual. Inside the nav it pushed the scrubber below the fold, and core
+  // sizes the scrubber from the space left under it.
+  override(DiscussionPage.prototype, 'sidebar', function (this: any, original: () => Mithril.Children) {
+    return [this.discussion ? <Creator discussion={this.discussion} variant="side" /> : null, original()];
   });
 
   // The title lives in the card (and, on a phone, under the pictures).
