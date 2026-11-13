@@ -21,6 +21,9 @@ export interface StageAttrs extends ComponentAttrs {
 export default class Stage extends Component<StageAttrs> {
   index = 0;
 
+  /** Where a touch began, for a swipe between pictures. */
+  touchX: number | null = null;
+
   view(): Mithril.Children {
     const pictures = this.attrs.pictures;
     const count = pictures.length;
@@ -54,6 +57,22 @@ export default class Stage extends Component<StageAttrs> {
           style={{ aspectRatio: `1000 / ${ratio}` }}
           tabindex={count > 1 ? 0 : undefined}
           aria-label={count > 1 ? t('stage.label', { number: index + 1, count }) : undefined}
+          ontouchstart={(e: TouchEvent) => {
+            this.touchX = e.touches.length === 1 ? e.touches[0].clientX : null;
+          }}
+          ontouchend={(e: TouchEvent) => {
+            const start = this.touchX;
+            this.touchX = null;
+
+            if (count < 2 || start === null) return;
+
+            const dx = e.changedTouches[0].clientX - start;
+
+            if (Math.abs(dx) > 40) {
+              this.step(dx < 0 ? 1 : -1);
+              e.preventDefault();
+            }
+          }}
           onkeydown={(e: KeyboardEvent) => {
             if (e.key === 'ArrowRight') {
               this.step(1);
