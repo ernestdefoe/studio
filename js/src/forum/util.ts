@@ -27,9 +27,17 @@ export function isDark(): boolean {
   return (document.documentElement.getAttribute('data-theme') || '').startsWith('dark');
 }
 
-/** The full-bleed gallery with the icon rail: dark mode, when the forum has it on. */
+/*
+ * Gallery mode is for wide screens, as the stylesheet's rail is
+ * (@desktop-up): on a phone or tablet, dark mode keeps ordinary cards.
+ */
+const wideQuery = typeof window !== 'undefined' && window.matchMedia ? window.matchMedia('(min-width: 992px)') : null;
+
+wideQuery?.addEventListener?.('change', () => m.redraw());
+
+/** The full-bleed gallery with the icon rail: dark mode on a wide screen, when the forum has it on. */
 export function railMode(): boolean {
-  return isDark() && document.documentElement.getAttribute('data-studio-rail') !== 'off';
+  return isDark() && !!wideQuery?.matches && document.documentElement.getAttribute('data-studio-rail') !== 'off';
 }
 
 /** Where a discussion link opens, as core's list does: the first unread post. */

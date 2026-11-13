@@ -219,6 +219,19 @@
     }
   }
 
+  // A touch screen has no hover: the words stay.
+  @media (hover: none) {
+    .StudioCard-title,
+    .StudioCard-stats {
+      max-height: 6em;
+      opacity: 1;
+    }
+
+    .StudioCard-title {
+      margin: 8px 0 4px;
+    }
+  }
+
   // A typographic tile keeps its words on the colour, above the name.
   &.StudioCard--type .StudioCard-meta {
     background: none;

@@ -70,7 +70,7 @@ export default class Stage extends Component<StageAttrs> {
 
             if (Math.abs(dx) > 40) {
               this.step(dx < 0 ? 1 : -1);
-              e.preventDefault();
+              if (e.cancelable) e.preventDefault();
             }
           }}
           onkeydown={(e: KeyboardEvent) => {

@@ -416,6 +416,8 @@ html:not(#st-x) .StudioCreator .Button.StudioCreator-link {
   border-radius: 16px;
   overflow: hidden;
   background: color-mix(in srgb, var(--st-ink) 6%, var(--st-card));
+  // A sideways swipe steps through the pictures; the page still scrolls.
+  touch-action: pan-y pinch-zoom;
 
   &:focus-visible {
     outline: 2px solid var(--st-accent-ui);
