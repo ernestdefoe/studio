@@ -1,0 +1,100 @@
+{
+    "name": "ernestdefoe/studio",
+    "description": "Studio — an image-first masonry theme for Flarum 2, for photo, art and maker communities. A gallery of each discussion's own pictures, creator cards, a spec sheet and critique replies, and a full-bleed dark gallery mode.",
+    "type": "flarum-extension",
+    "keywords": [
+        "flarum",
+        "flarum-extension",
+        "theme",
+        "gallery",
+        "masonry",
+        "photography",
+        "art",
+        "makers",
+        "studio"
+    ],
+    "homepage": "https://github.com/ernestdefoe/studio",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Ernestdefoe",
+            "email": "ernestdefoe@gmail.com"
+        }
+    ],
+    "require": {
+        "php": "^8.3",
+        "flarum/core": "^2.0"
+    },
+    "suggest": {
+        "flarum/tags": "Medium chips above the gallery and the medium on each card.",
+        "fof/upload": "Uploaded pictures become covers with exact sizes and small thumbnails.",
+        "ianm/follow-users": "A Follow button on the creator card.",
+        "flarum/likes": "An Appreciate button on the creator card.",
+        "fof/discussion-views": "View counts on the cards.",
+        "fof/forum-widgets-core": "Widgets beside and above the gallery.",
+        "ernestdefoe/garage": "The creator card links a member's builds.",
+        "ernestdefoe/projects": "The creator card links a member's projects.",
+        "ernestdefoe/atrium": "The creator card links a member's gallery.",
+        "ernestdefoe/wardrobe": "Offer Studio beside other themes, chosen by each member."
+    },
+    "autoload": {
+        "psr-4": {
+            "ErnestDefoe\\Studio\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "ErnestDefoe\\Studio\\Tests\\": "tests/"
+        }
+    },
+    "extra": {
+        "flarum-extension": {
+            "title": "Studio",
+            "category": "theme",
+            "icon": {
+                "name": "fas fa-images",
+                "backgroundColor": "#16161A",
+                "color": "#F3F2EF"
+            },
+            "optional-dependencies": [
+                "fof-upload",
+                "flarum-tags",
+                "flarum-likes"
+            ]
+        }
+    },
+    "support": {
+        "issues": "https://github.com/ernestdefoe/studio/issues",
+        "source": "https://github.com/ernestdefoe/studio"
+    },
+    "require-dev": {
+        "flarum/phpstan": "^2.0",
+        "flarum/tags": "^2.0",
+        "flarum/testing": "^2.0",
+        "laravel/pint": "^1.32"
+    },
+    "scripts": {
+        "test": [
+            "@test:unit",
+            "@test:integration"
+        ],
+        "test:integration": "phpunit -c tests/phpunit.integration.xml",
+        "test:setup": "@php tests/integration/setup.php",
+        "analyse:phpstan": "phpstan analyse",
+        "style": "pint --test",
+        "style:fix": "pint",
+        "test:unit": "phpunit -c tests/phpunit.unit.xml"
+    },
+    "scripts-descriptions": {
+        "test": "Runs all tests.",
+        "test:integration": "Runs all integration tests.",
+        "test:setup": "Sets up a database for use with integration tests. Execute this only once.",
+        "analyse:phpstan": "Run static analysis",
+        "test:unit": "Runs all unit tests."
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "minimum-stability": "beta",
+    "prefer-stable": true
+}

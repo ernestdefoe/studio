@@ -1,0 +1,485 @@
+// ============================================================================
+// A discussion as a work: the opening post's pictures on a stage, the words
+// under them, and a card beside the posts for the creator, the title, the
+// spec sheet and Appreciate. On a phone the card is split around the post.
+// ============================================================================
+
+@media @tablet-up {
+  .DiscussionPage {
+    --sidebar-width: 300px;
+    --gap: 32px;
+  }
+
+  // The card's own copies inside the post are for phones.
+  .StudioCreator--inline,
+  .StudioCreator--facts {
+    display: none;
+  }
+}
+
+@media @desktop-up {
+  .DiscussionPage {
+    --sidebar-width: 360px;
+    --gap: 36px;
+  }
+}
+
+// The pictures want the room: the column is not capped and centred like
+// core's reading column; the words inside it are.
+@media @desktop-hd {
+  .DiscussionPage .Page-content {
+    max-width: none;
+    margin-left: 0;
+    margin-right: 0;
+  }
+}
+
+.DiscussionPage .PostStream {
+  max-width: 1040px;
+}
+
+// The title is in the card: the page's own hero stays empty.
+.DiscussionPage .Page-hero:empty {
+  display: none;
+}
+
+// ---------------------------------------------------------------------------
+// The card.
+
+.DiscussionPage-nav .item-studioCreator {
+  margin-bottom: 18px;
+}
+
+.StudioCreator {
+  color: var(--st-ink);
+}
+
+.StudioCreator--side {
+  background: var(--st-card);
+  border-radius: 16px;
+  padding: 22px;
+  box-shadow: var(--st-shadow);
+  text-align: left;
+}
+
+.StudioCreator-who {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  min-width: 0;
+}
+
+.StudioCreator-avatar {
+  flex: none;
+  line-height: 0;
+
+  .Avatar {
+    --size: 64px;
+    font-size: 24px;
+  }
+}
+
+.StudioCreator-name {
+  min-width: 0;
+  flex: 1 1 auto;
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 1.25;
+  overflow-wrap: anywhere;
+}
+
+html:not(#st-x) .StudioCreator-name > a {
+  color: var(--st-ink);
+  text-decoration: none;
+
+  &:hover {
+    color: var(--st-accent-ui);
+  }
+}
+
+.StudioCreator-facts {
+  font-size: 13px;
+  font-weight: 400;
+  color: var(--st-muted);
+  margin-top: 2px;
+}
+
+// The DiscussionPage-nav makes every button full width; these are ours too.
+.DiscussionPage-nav .StudioCreator .Button,
+.StudioCreator .Button {
+  border-radius: var(--st-radius-sm);
+  font-weight: 600;
+}
+
+.StudioCreator-follow {
+  margin-top: 16px;
+  width: 100%;
+
+  &:not(.Button--primary) {
+    background: var(--st-card);
+    color: var(--st-ink);
+    border: 1px solid var(--st-line-2);
+  }
+}
+
+// The discussion's own hero, as a heading inside the card: its title, its
+// tags and whatever other extensions add there.
+.StudioCreator .DiscussionHero {
+  background: none;
+  color: var(--st-ink);
+  padding: 0;
+  margin: 20px 0 8px;
+  text-align: left;
+  border: 0;
+  box-shadow: none;
+  min-height: 0;
+
+  .container {
+    width: auto;
+    max-width: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .DiscussionHero-items {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+
+    > li {
+      margin: 0;
+    }
+  }
+
+  // The tags read better under the title, as in the card mockup.
+  .item-title {
+    order: -1;
+  }
+
+  .DiscussionHero-title {
+    font-family: var(--st-sans);
+    font-size: 26px;
+    font-weight: 700;
+    line-height: 1.2;
+    letter-spacing: -0.01em;
+    margin: 0;
+    color: var(--st-ink);
+    overflow-wrap: anywhere;
+  }
+
+  .TagsLabel {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  // 🚨 At id weight: flarum/tags colours its labels, themes colour links.
+  html:not(#st-x) & .TagLabel {
+    --tag-bg: var(--tag-color, var(--st-accent));
+    background: color-mix(in srgb, var(--tag-bg) 16%, var(--st-card));
+    color: color-mix(in srgb, var(--tag-bg) 60%, var(--st-ink));
+    border: 0;
+    border-radius: 999px;
+    padding: 5px 10px;
+    font-size: 13px;
+    font-weight: 600;
+    text-decoration: none;
+
+    .TagLabel-text,
+    .icon {
+      color: inherit;
+    }
+  }
+}
+
+// The spec sheet.
+.StudioSpec {
+  margin: 16px 0 0;
+  padding: 0;
+}
+
+.StudioSpec-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 9px 0;
+  border-top: 1px solid var(--st-line);
+  font-size: 14px;
+
+  dt {
+    color: var(--st-muted);
+    font-weight: 400;
+  }
+
+  dd {
+    margin: 0;
+    text-align: right;
+    color: var(--st-ink);
+    min-width: 0;
+    overflow-wrap: anywhere;
+  }
+}
+
+.StudioCreator-appreciate {
+  margin-top: 18px;
+  width: 100%;
+
+  &.active {
+    background: var(--st-card);
+    color: var(--st-accent-ui);
+    border: 1px solid var(--st-accent-ui);
+
+    .icon {
+      color: inherit;
+    }
+  }
+}
+
+.StudioCreator-likes {
+  margin-top: 16px;
+  font-size: 14px;
+  color: var(--st-muted);
+}
+
+.StudioCreator-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 14px;
+}
+
+html:not(#st-x) .StudioCreator .Button.StudioCreator-link {
+  width: auto;
+  padding: 6px 10px;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--st-muted);
+  border-radius: 999px;
+  border: 1px solid var(--st-line);
+  text-decoration: none;
+
+  &:hover {
+    color: var(--st-ink);
+    border-color: var(--st-ink);
+  }
+}
+
+// More from the creator.
+.StudioMore {
+  margin-top: 22px;
+}
+
+.StudioMore-title {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--st-muted);
+  margin: 0 0 10px;
+}
+
+.StudioMore-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.StudioMore-item {
+  display: block;
+  aspect-ratio: 1;
+  border-radius: var(--st-radius-sm);
+  overflow: hidden;
+  background: var(--st-line);
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+}
+
+// ---------------------------------------------------------------------------
+// The opening post as the work.
+
+.StudioWork {
+  // No author column: the creator is in the card.
+  --avatar-column-width: 0px;
+  padding-left: 0;
+
+  .Post-header,
+  .Post-side {
+    display: none;
+  }
+
+  // Core's post is a grid of an avatar column and the post; one column here.
+  .Post-container {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  // The replies' heading comes after the post's own actions.
+  .Post-main {
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 auto;
+    width: 100%;
+    min-width: 0;
+  }
+
+  .StudioWork-replies {
+    order: 1;
+  }
+
+  .Post-body {
+    font-size: 17px;
+    line-height: 1.65;
+    color: var(--st-ink-2);
+  }
+}
+
+// The pictures are on the stage; the body keeps the words.
+.StudioWork--pictures .Post-body {
+  img:not(.emoji),
+  a:has(> img:only-child):not(:has(:not(img))) {
+    display: none;
+  }
+}
+
+.StudioWork-replies {
+  font-size: 20px;
+  font-weight: 700;
+  margin: 30px 0 0;
+  color: var(--st-ink);
+}
+
+// The stage.
+.StudioStage {
+  display: grid;
+  grid-template-columns: 86px minmax(0, 1fr);
+  gap: 16px;
+  margin-bottom: 26px;
+}
+
+.StudioStage--single {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.StudioStage-thumbs {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-height: 640px;
+  overflow-y: auto;
+  scrollbar-width: thin;
+}
+
+.StudioStage-thumb {
+  flex: none;
+  width: 86px;
+  height: 86px;
+  padding: 0;
+  border-radius: var(--st-radius-sm);
+  overflow: hidden;
+  border: 2px solid transparent;
+  background: var(--st-line);
+  cursor: pointer;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  &.active {
+    border-color: var(--st-strong);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--st-accent-ui);
+    outline-offset: 2px;
+  }
+}
+
+.StudioStage-figure {
+  position: relative;
+  margin: 0;
+  width: 100%;
+  max-height: 78vh;
+  border-radius: 16px;
+  overflow: hidden;
+  background: color-mix(in srgb, var(--st-ink) 6%, var(--st-card));
+
+  &:focus-visible {
+    outline: 2px solid var(--st-accent-ui);
+    outline-offset: 2px;
+  }
+}
+
+.StudioStage-open img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+}
+
+.StudioStage-counter {
+  position: absolute;
+  bottom: 14px;
+  right: 14px;
+  background: rgba(22, 22, 26, 0.78);
+  color: #ffffff;
+  font-size: 13px;
+  font-weight: 600;
+  padding: 6px 11px;
+  border-radius: 999px;
+}
+
+.Button.StudioStage-step {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: rgba(22, 22, 26, 0.62);
+  color: #ffffff;
+  opacity: 0;
+  transition: opacity 0.15s;
+
+  .icon {
+    color: inherit;
+  }
+
+  &--prev {
+    left: 12px;
+  }
+
+  &--next {
+    right: 12px;
+  }
+}
+
+.StudioStage-figure:hover .StudioStage-step,
+.StudioStage-step:focus-visible {
+  opacity: 1;
+}
+
+@media (hover: none) {
+  .Button.StudioStage-step {
+    opacity: 1;
+  }
+}
+
+.StudioStage-dots {
+  display: none;
+}

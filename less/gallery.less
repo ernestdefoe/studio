@@ -1,0 +1,40 @@
+// ============================================================================
+// The gallery: real columns (Gallery.tsx fills them), so loading more never
+// moves a card already on screen.
+// ============================================================================
+
+.StudioGallery {
+  --studio-gap: 18px;
+}
+
+.StudioGallery-grid {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--studio-gap);
+}
+
+.StudioGallery-column {
+  flex: 1 1 0;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--studio-gap);
+}
+
+.StudioGallery .DiscussionList-loadMore {
+  text-align: center;
+  margin-top: 24px;
+
+  .Button {
+    border-radius: 999px;
+    background: var(--st-card);
+    color: var(--st-ink);
+    border: 1px solid var(--st-line-2);
+    padding: 10px 22px;
+  }
+}
+
+// A member's page of discussions is their portfolio: same gallery.
+.DiscussionsUserPage .StudioGallery {
+  margin-top: 4px;
+}

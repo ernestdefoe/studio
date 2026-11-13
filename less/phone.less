@@ -1,0 +1,194 @@
+// ============================================================================
+// Phones. Last in the import order, so these win ties.
+// ============================================================================
+
+@media @phone {
+  .IndexPage-toolbar .item-studioChips {
+    flex-basis: 100%;
+    order: -1;
+  }
+
+  // Chips run edge to edge and scroll.
+  .StudioChips {
+    margin: 0 -15px;
+    padding: 2px 15px;
+  }
+
+  // Core runs its list edge to edge on phones; the gallery keeps the gutter.
+  .DiscussionList.StudioGallery {
+    margin-left: 0;
+    margin-right: 0;
+  }
+
+  // The sort and the actions share one row under the chips.
+  .IndexPage-toolbar {
+    flex-wrap: wrap;
+  }
+
+  .IndexPage-toolbar-action {
+    flex-wrap: nowrap;
+  }
+
+  .StudioCard {
+    border-radius: 12px;
+  }
+
+  .StudioCard-meta {
+    padding: 0 10px 10px;
+  }
+
+  .StudioCard-avatar {
+    margin-top: -16px;
+
+    .Avatar {
+      --size: 30px;
+      border-width: 2px;
+      font-size: 12px;
+    }
+  }
+
+  .StudioCard-who {
+    font-size: 12px;
+  }
+
+  html:not(#st-x) .StudioCard-name {
+    font-size: 12px;
+  }
+
+  .StudioCard-medium {
+    display: none;
+  }
+
+  .StudioCard-title {
+    font-size: 14px;
+    margin: 6px 0 4px;
+  }
+
+  .StudioCard-stats {
+    font-size: 12px;
+    gap: 2px 10px;
+  }
+
+  .StudioCard-typeTitle {
+    font-size: 21px;
+  }
+
+  .StudioCard-flag {
+    max-width: calc(100% - 20px);
+  }
+
+  .StudioCard-count {
+    display: none;
+  }
+
+  // The discussion: pictures edge to edge, the card split around the words.
+  .DiscussionPage-nav .item-studioCreator {
+    display: none;
+  }
+
+  .StudioStage {
+    display: block;
+    margin: -15px -15px 16px;
+  }
+
+  .StudioStage-thumbs {
+    display: none;
+  }
+
+  .StudioStage-figure {
+    border-radius: 0;
+    max-height: 70vh;
+  }
+
+  .StudioStage-counter {
+    display: none;
+  }
+
+  .StudioStage-dots {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 12px;
+    display: flex;
+    justify-content: center;
+    gap: 6px;
+    pointer-events: none;
+  }
+
+  .StudioStage-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 3px;
+    background: rgba(255, 255, 255, 0.55);
+    box-shadow: 0 0 0 1px rgba(22, 22, 26, 0.25);
+
+    &.active {
+      width: 18px;
+      background: #ffffff;
+    }
+  }
+
+  .StudioCreator--inline {
+    margin-bottom: 14px;
+
+    .StudioCreator-avatar .Avatar {
+      --size: 48px;
+      font-size: 18px;
+    }
+
+    .StudioCreator-name {
+      font-size: 16px;
+    }
+
+    .StudioCreator-follow {
+      margin-top: 0;
+      width: auto;
+      flex: none;
+    }
+
+    .DiscussionHero {
+      margin: 16px 0 4px;
+    }
+
+    .DiscussionHero-title {
+      font-size: 23px;
+    }
+  }
+
+  .StudioCreator--facts {
+    margin-top: 16px;
+
+    .StudioSpec {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(~"min(110px, 100%)", 1fr));
+      background: var(--st-card);
+      border: 1px solid var(--st-line);
+      border-radius: var(--st-radius-sm);
+      overflow: hidden;
+    }
+
+    .StudioSpec-row {
+      display: block;
+      border: 0;
+      box-shadow: 0 0 0 0.5px var(--st-line);
+      padding: 10px;
+      font-size: 12px;
+
+      dd {
+        text-align: left;
+        font-weight: 700;
+        margin-top: 2px;
+      }
+    }
+  }
+
+  .StudioWork .Post-body {
+    font-size: 16px;
+    line-height: 1.6;
+  }
+
+  .StudioWork-replies {
+    font-size: 17px;
+    margin-top: 22px;
+  }
+}

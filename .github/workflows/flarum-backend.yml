@@ -1,0 +1,21 @@
+# Flarum's own shared backend workflow: the full PHP and database matrix,
+# PHPStan and the test suite, as Warren and every public extension run it.
+#
+# 🚨 Only once the repository is PUBLIC. Public repositories run Actions for
+# free; this one is private until release, where every job bills minutes,
+# so until then backend.yml runs the trimmed one-job suite instead. When the
+# repository is made public the two swap over by themselves.
+
+name: Studio PHP (Flarum)
+
+on: [workflow_dispatch, push, pull_request]
+
+jobs:
+  run:
+    if: ${{ !github.event.repository.private }}
+    uses: flarum/framework/.github/workflows/REUSABLE_backend.yml@2.x
+    with:
+      enable_backend_testing: true
+      enable_phpstan: true
+
+      backend_directory: .

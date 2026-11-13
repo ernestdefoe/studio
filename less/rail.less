@@ -1,0 +1,235 @@
+// ============================================================================
+// Gallery mode: dark, on wide screens. The page goes edge to edge, the
+// sidebar becomes a rail of icons, and each card a picture with its words
+// over it (the title on hover or focus).
+//
+// Off when the forum switches it off (data-studio-rail="off").
+// 🚨 Only when the sidebar holds nothing but its links: widgets placed in the
+// sidebar's own areas (fof/forum-widgets-core start_top / start_bottom) have
+// no room in a 76px rail, so with any there the sidebar stays a sidebar.
+// ============================================================================
+
+.st-rail(@rules) {
+  @media @desktop-up {
+    html[data-theme^='dark']:not([data-studio-rail='off']) {
+      @rules();
+    }
+  }
+}
+
+.st-rail({
+  .IndexPage:not(:has(.Page-sidebar > :not(.IndexPage-nav))) {
+    --sidebar-width: 76px;
+    --gap: 24px;
+
+    .Page-container.container {
+      width: auto;
+      max-width: none;
+      padding-left: 0;
+      padding-right: 24px;
+    }
+
+    .Page-sidebar {
+      margin-top: 0;
+      align-self: stretch;
+      border-right: 1px solid var(--st-line);
+      min-height: calc(100vh - var(--header-height, 52px));
+    }
+
+    .Page-content {
+      margin-top: 20px;
+    }
+
+    .IndexPage-nav.sideNav {
+      &, > ul {
+        width: 76px;
+      }
+
+      > ul {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding-top: 16px;
+        position: sticky;
+        top: var(--header-height, 52px);
+      }
+
+      > ul > li {
+        margin-bottom: 8px;
+      }
+
+      // The share button: a square accent "+" at the top of the rail.
+      .App-primaryControl {
+        order: -1;
+        margin-bottom: 14px;
+      }
+
+      .Button.IndexPage-newDiscussion {
+        width: 44px;
+        height: 44px;
+        padding: 0;
+        display: grid;
+        place-items: center;
+        border-radius: 12px;
+        background: var(--st-accent-ui);
+        color: #ffffff;
+
+        .Button-label {
+          display: none;
+        }
+
+        .Button-icon {
+          margin: 0;
+          font-size: 18px;
+        }
+      }
+
+      .Dropdown--select .Dropdown-menu {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 8px;
+
+        > li > a,
+        > li > button {
+          width: 44px;
+          height: 44px;
+          padding: 0;
+          justify-content: center;
+          border-radius: 12px;
+          color: var(--st-muted);
+
+          .Button-label {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            overflow: hidden;
+            clip-path: inset(50%);
+            white-space: nowrap;
+          }
+
+          .Button-icon {
+            margin: 0;
+            font-size: 18px;
+          }
+        }
+
+        > li.active > a {
+          background: var(--st-raised);
+          color: var(--st-ink);
+        }
+
+        // Mediums are the chips above the gallery; the rail keeps the
+        // forum-wide links.
+        > li:has(.TagLinkButton),
+        > li.item-separator,
+        > li.item-moreTags,
+        > .Dropdown-separator {
+          display: none;
+        }
+      }
+    }
+  }
+
+  // The welcome hero would push the gallery down a screen: slimmer.
+  .IndexPage .Hero.WelcomeHero {
+    padding: 18px 0;
+
+    .Hero-title {
+      font-size: 32px;
+    }
+  }
+});
+
+// ---------------------------------------------------------------------------
+// Tiles: in gallery mode, the words go over the picture.
+
+.StudioCard--tile {
+  border-radius: 6px;
+  background: var(--st-card);
+  box-shadow: none;
+
+  .StudioCard-meta {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    padding: 30px 12px 10px;
+    background: linear-gradient(to top, rgba(8, 8, 10, 0.86), rgba(8, 8, 10, 0));
+    pointer-events: none;
+  }
+
+  .StudioCard-avatar,
+  .StudioCard-badges,
+  .StudioCard-title a {
+    pointer-events: auto;
+  }
+
+  .StudioCard-who {
+    align-items: center;
+  }
+
+  .StudioCard-avatar {
+    margin-top: 0;
+
+    .Avatar {
+      --size: 28px;
+      border-width: 2px;
+      border-color: #0e0e10;
+      font-size: 12px;
+    }
+  }
+
+  // Over a picture the words are always light, whatever the mode.
+  html:not(#st-x) & .StudioCard-name,
+  html:not(#st-x) & .StudioCard-title a {
+    color: #f2f1ee;
+  }
+
+  .StudioCard-stats {
+    color: #c9c8ce;
+  }
+
+  .StudioCard-title,
+  .StudioCard-stats {
+    max-height: 0;
+    opacity: 0;
+    margin: 0;
+    transition: opacity 0.15s, max-height 0.15s, margin 0.15s;
+  }
+
+  &:hover,
+  &:focus-within {
+    .StudioCard-meta {
+      top: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      background: rgba(8, 8, 10, 0.72);
+    }
+
+    .StudioCard-title,
+    .StudioCard-stats {
+      max-height: 6em;
+      opacity: 1;
+    }
+
+    .StudioCard-title {
+      margin: 10px 0 6px;
+    }
+  }
+
+  // A typographic tile keeps its words on the colour, above the name.
+  &.StudioCard--type .StudioCard-meta {
+    background: none;
+  }
+
+  .StudioCard-box--type {
+    padding-bottom: 56px;
+  }
+
+  .StudioCard-typeTitle {
+    font-size: 23px;
+    -webkit-line-clamp: 3;
+  }
+}

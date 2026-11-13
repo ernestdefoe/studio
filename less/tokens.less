@@ -1,0 +1,113 @@
+// ============================================================================
+// Tokens
+//
+// The accent and the light ground come from the server (extend.php) as LESS
+// variables; everything else derives from them in CSS. Studio's own tokens are
+// --st-*. Mode-dependent colour lives in core's [data-theme^=light|dark]
+// blocks, never behind prefers-color-scheme: Flarum 2 has four modes with a
+// member's preference behind them.
+//
+// 🚨 @studio-accent and @studio-ground are deliberately NOT given defaults
+// here: LESS resolves a variable to its LAST definition in scope, so a default
+// in this file would silently beat the server's value.
+// ============================================================================
+
+:root {
+  --st-accent:     @studio-accent;
+  --st-on-accent:  #ffffff;
+  --st-radius:     14px;
+  --st-radius-sm:  10px;
+  --st-serif:      Georgia, 'Times New Roman', serif;
+  --st-sans:       system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+
+  // Wider than core's containers: a gallery wants the room.
+  --container-hd:  1640px;
+  --container-xl:  1640px;
+  --container-xxl: 1640px;
+}
+
+[data-theme^='light'] {
+  --st-ground:    @studio-ground;
+  --st-card:      #ffffff;
+  --st-raised:    #ffffff;
+  --st-line:      #e4e2dc;
+  --st-line-2:    #d8d6d0;
+  --st-ink:       #16161a;
+  --st-ink-2:     #2a2a30;
+  --st-muted:     #605f66;
+  --st-nav:       #3b3a40;
+  --st-strong:    #16161a;
+  --st-on-strong: #ffffff;
+  --st-shadow:    0 1px 2px rgba(22, 22, 26, 0.06);
+  --st-scrim:     rgba(22, 22, 26, 0.78);
+  --st-accent-ui: var(--st-accent);
+  --st-tint-mix:  16%;
+
+  // Core's greys, warmed to match.
+  --control-bg:         #ebe9e4;
+  --control-color:      #3b3a40;
+  --muted-color:        var(--st-muted);
+  --muted-more-color:   #8d8c93;
+  --text-color:         var(--st-ink-2);
+  --heading-color:      var(--st-ink);
+}
+
+[data-theme='light-hc'] {
+  --st-line:      #8f8d86;
+  --st-line-2:    #6f6d66;
+  --st-muted:     #3d3c42;
+}
+
+// Dark is the gallery: near-black, the pictures carry the colour.
+[data-theme^='dark'] {
+  --st-ground:    #0e0e10;
+  --st-card:      #18181b;
+  --st-raised:    #1f1f23;
+  --st-line:      #26262b;
+  --st-line-2:    #34343a;
+  --st-ink:       #f2f1ee;
+  --st-ink-2:     #dcdbd8;
+  --st-muted:     #a3a2aa;
+  --st-nav:       #c9c8ce;
+  --st-strong:    #f2f1ee;
+  --st-on-strong: #0e0e10;
+  --st-shadow:    none;
+  --st-scrim:     rgba(8, 8, 10, 0.78);
+  --st-accent-ui: color-mix(in srgb, var(--st-accent) 82%, #ffffff);
+  --st-tint-mix:  26%;
+
+  // Core's surfaces and greys sit on Studio's ground, not blue-grey on black.
+  --body-bg:          var(--st-card);
+  --control-bg:       var(--st-raised);
+  --control-color:    var(--st-nav);
+  --muted-color:      var(--st-muted);
+  --muted-more-color: #7b7a82;
+  --text-color:       var(--st-ink-2);
+  --heading-color:    var(--st-ink);
+}
+
+[data-theme='dark-hc'] {
+  --st-line:      #55555c;
+  --st-line-2:    #6a6a72;
+  --st-muted:     #c9c8ce;
+}
+
+// Core's own colours, Studio's way: the header is the card colour, primary
+// actions are the accent. 🚨 `html[data-theme]`, not :root: core declares
+// these inside its [data-theme^=light] block, which beats :root.
+html[data-theme] {
+  --header-bg:            var(--st-card);
+  --header-color:         var(--st-ink);
+  --header-control-bg:    var(--st-ground);
+  --header-control-color: var(--st-ink);
+  --primary-color:        var(--st-accent);
+  --button-primary-bg:          var(--st-accent);
+  --button-primary-color:       var(--st-on-accent);
+  --button-primary-bg-hover:    color-mix(in srgb, var(--st-accent) 88%, #000000);
+  --button-primary-bg-active:   color-mix(in srgb, var(--st-accent) 80%, #000000);
+  --button-primary-bg-disabled: color-mix(in srgb, var(--st-accent) 55%, var(--st-card));
+  --link-color:           var(--st-accent-ui);
+  --sidenav-color:        var(--st-nav);
+  --sidenav-color-hover:  var(--st-ink);
+  --sidenav-color-active: var(--st-on-strong);
+}
