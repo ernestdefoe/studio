@@ -35,7 +35,7 @@ mode becomes a full-bleed gallery.
   on a phone), arrow keys, and a link to each full-size picture. The stage
   keeps one size while you step through, so the words under it never move.
 - **A card for the maker**: their avatar, works and followers, a **Follow**
-  button (with [Follow Users](https://github.com/imorland/flarum-ext-follow-users)),
+  button (with [Follow Users](https://github.com/imorland/follow-users)),
   the title and tags, a **spec sheet** (medium, pictures, date, replies,
   views), **Appreciate** (a like on the opening post, with Flarum's Likes),
   links to the maker's builds, projects and gallery when
